@@ -9,7 +9,7 @@ import type { RadialMenuItem } from '../../../typings';
 import { useLocales } from '../../../providers/LocaleProvider';
 import LibIcon from '../../../components/LibIcon';
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
   wrapper: {
     position: 'absolute',
     top: '50%',
@@ -17,32 +17,35 @@ const useStyles = createStyles((theme) => ({
     transform: 'translate(-50%, -50%)',
   },
   sector: {
-    fill: theme.colors.dark[6],
-    color: theme.colors.dark[0],
+    fill: 'var(--ov-surface)',
+    stroke: 'var(--ov-border)',
+    strokeWidth: 1,
+    color: 'var(--ov-muted)',
 
     '&:hover': {
-      fill: theme.fn.primaryColor(),
+      fill: 'var(--ov-accent)',
       cursor: 'pointer',
       '> g > text, > g > svg > path': {
-        fill: '#fff',
+        fill: '#09090B',
       },
     },
     '> g > text': {
-      fill: theme.colors.dark[0],
+      fill: 'var(--ov-muted)',
       strokeWidth: 0,
     },
   },
   backgroundCircle: {
-    fill: theme.colors.dark[6],
+    fill: 'var(--ov-surface)',
+    stroke: 'var(--ov-border)',
+    strokeWidth: 1,
   },
   centerCircle: {
-    fill: theme.fn.primaryColor(),
-    color: '#fff',
-    stroke: theme.colors.dark[6],
-    strokeWidth: 4,
+    fill: 'var(--ov-raised)',
+    stroke: 'var(--ov-border)',
+    strokeWidth: 1,
     '&:hover': {
       cursor: 'pointer',
-      fill: theme.colors[theme.primaryColor][theme.fn.primaryShade() - 1],
+      fill: 'var(--ov-hover)',
     },
   },
   centerIconContainer: {
@@ -53,7 +56,7 @@ const useStyles = createStyles((theme) => ({
     pointerEvents: 'none',
   },
   centerIcon: {
-    color: '#fff',
+    color: 'var(--ov-muted)',
   },
 }));
 
@@ -208,7 +211,6 @@ const RadialMenu: React.FC = () => {
                     <text
                       x={iconX}
                       y={iconY + (splitTextIntoLines(item.label, 15).length > 2 ? 15 : 28)}
-                      fill="#fff"
                       textAnchor="middle"
                       fontSize={calculateFontSize(item.label)}
                       pointerEvents="none"
@@ -245,7 +247,6 @@ const RadialMenu: React.FC = () => {
               icon={!menu.sub && menu.page < 2 ? 'xmark' : 'arrow-rotate-left'}
               fixedWidth
               className={classes.centerIcon}
-              color="#fff"
               size="2x"
             />
           </div>
