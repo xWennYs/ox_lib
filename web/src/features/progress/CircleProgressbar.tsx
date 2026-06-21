@@ -1,5 +1,5 @@
 import React from 'react';
-import {createStyles, keyframes, RingProgress, Stack, Text, useMantineTheme} from '@mantine/core';
+import {createStyles, keyframes, RingProgress, Stack, Text} from '@mantine/core';
 import {useNuiEvent} from '../../hooks/useNuiEvent';
 import {fetchNui} from '../../utils/fetchNui';
 import ScaleFade from '../../transitions/ScaleFade';
@@ -11,7 +11,7 @@ const progressCircle = keyframes({
   '100%': { strokeDasharray: `${33.5 * 2 * Math.PI}, 0` },
 });
 
-const useStyles = createStyles((theme, params: { position: 'middle' | 'bottom'; duration: number }) => ({
+const useStyles = createStyles((_theme, params: { position: 'middle' | 'bottom'; duration: number }) => ({
   container: {
     width: '100%',
     height: params.position === 'middle' ? '100%' : '20%',
@@ -23,7 +23,7 @@ const useStyles = createStyles((theme, params: { position: 'middle' | 'bottom'; 
   },
   progress: {
     '> svg > circle:nth-child(1)': {
-      stroke: theme.colors.dark[5],
+      stroke: 'var(--ov-border)',
     },
     // Scuffed way of grabbing the first section and animating it
     '> svg > circle:nth-child(2)': {
@@ -35,13 +35,12 @@ const useStyles = createStyles((theme, params: { position: 'middle' | 'bottom'; 
   value: {
     textAlign: 'center',
     fontFamily: 'Roboto Mono',
-    textShadow: theme.shadows.sm,
-    color: theme.colors.gray[3],
+    color: 'var(--ov-text)',
+    fontVariantNumeric: 'tabular-nums',
   },
   label: {
     textAlign: 'center',
-    textShadow: theme.shadows.sm,
-    color: theme.colors.gray[3],
+    color: 'var(--ov-text)',
     height: 25,
   },
   wrapper: {
@@ -55,7 +54,6 @@ const CircleProgressbar: React.FC = () => {
   const [position, setPosition] = React.useState<'middle' | 'bottom'>('middle');
   const [value, setValue] = React.useState(0);
   const [label, setLabel] = React.useState('');
-  const theme = useMantineTheme();
   const { classes } = useStyles({ position, duration: progressDuration });
 
   useNuiEvent('progressCancel', () => {
@@ -88,7 +86,7 @@ const CircleProgressbar: React.FC = () => {
             <RingProgress
               size={90}
               thickness={7}
-              sections={[{ value: 0, color: theme.primaryColor }]}
+              sections={[{ value: 0, color: 'var(--ov-accent)' }]}
               onAnimationEnd={() => setVisible(false)}
               className={classes.progress}
               label={<Text className={classes.value}>{value}%</Text>}
