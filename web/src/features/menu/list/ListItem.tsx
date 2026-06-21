@@ -13,16 +13,28 @@ interface Props {
   checked: boolean;
 }
 
-const useStyles = createStyles((theme, params: { iconColor?: string }) => ({
+const useStyles = createStyles((_theme, params: { iconColor?: string }) => ({
   buttonContainer: {
-    backgroundColor: theme.colors.dark[6],
-    borderRadius: theme.radius.md,
-    padding: 2,
+    backgroundColor: 'transparent',
+    borderRadius: 0,
+    padding: 0,
+    paddingLeft: 2,
     height: 60,
     scrollMargin: 8,
+    borderTop: '1px solid var(--ov-divider)',
+    borderLeft: '2px solid transparent',
+    position: 'relative',
+    '&:first-of-type': {
+      borderTop: 'none',
+    },
     '&:focus': {
-      backgroundColor: theme.colors.dark[4],
+      backgroundColor: 'var(--ov-hover)',
       outline: 'none',
+      borderLeft: '2px solid var(--ov-accent)',
+      // Brighten all descendant text when selected
+      '& p, & span': {
+        color: 'var(--ov-text)',
+      },
     },
   },
   iconImage: {
@@ -41,20 +53,20 @@ const useStyles = createStyles((theme, params: { iconColor?: string }) => ({
   },
   icon: {
     fontSize: 24,
-    color: params.iconColor || theme.colors.dark[2],
+    color: params.iconColor || 'var(--ov-muted)',
   },
   label: {
-    color: theme.colors.dark[2],
+    color: '#D4D4D8',
     textTransform: 'uppercase',
     fontSize: 12,
     verticalAlign: 'middle',
   },
   chevronIcon: {
     fontSize: 14,
-    color: theme.colors.dark[2],
+    color: 'var(--ov-muted)',
   },
   scrollIndexValue: {
-    color: theme.colors.dark[2],
+    color: '#D4D4D8',
     textTransform: 'uppercase',
     fontSize: 14,
   },
@@ -65,6 +77,7 @@ const useStyles = createStyles((theme, params: { iconColor?: string }) => ({
   progressLabel: {
     verticalAlign: 'middle',
     marginBottom: 3,
+    color: '#D4D4D8',
   },
 }));
 
@@ -126,8 +139,15 @@ const ListItem = forwardRef<Array<HTMLDivElement | null>, Props>(({ item, index,
             <Text className={classes.progressLabel}>{item.label}</Text>
             <Progress
               value={item.progress}
-              color={item.colorScheme || 'dark.0'}
-              styles={(theme) => ({ root: { backgroundColor: theme.colors.dark[3] } })}
+              color={item.colorScheme || undefined}
+              styles={
+                !item.colorScheme
+                  ? {
+                      root: { backgroundColor: 'var(--ov-raised)' },
+                      bar: { backgroundColor: 'var(--ov-accent)' },
+                    }
+                  : { root: { backgroundColor: 'var(--ov-raised)' } }
+              }
             />
           </Stack>
         ) : (

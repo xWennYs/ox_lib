@@ -1,17 +1,23 @@
 import { Checkbox, createStyles } from '@mantine/core';
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
   root: {
     display: 'flex',
     alignItems: 'center',
   },
   input: {
-    backgroundColor: theme.colors.dark[7],
-    '&:checked': { backgroundColor: theme.colors.dark[2], borderColor: theme.colors.dark[2] },
+    backgroundColor: 'transparent',
+    border: '1px solid var(--ov-border)',
+    borderRadius: 5,
+    cursor: 'pointer',
+    '&:checked': {
+      backgroundColor: 'var(--ov-accent)',
+      borderColor: 'var(--ov-accent)',
+    },
   },
   inner: {
     '> svg > path': {
-      fill: theme.colors.dark[6],
+      fill: '#09090B',
     },
   },
 }));

@@ -8,11 +8,11 @@ import { fetchNui } from '../../../utils/fetchNui';
 import type { MenuPosition, MenuSettings } from '../../../typings';
 import LibIcon from '../../../components/LibIcon';
 
-const useStyles = createStyles((theme, params: { position?: MenuPosition; itemCount: number; selected: number }) => ({
+const useStyles = createStyles((_theme, params: { position?: MenuPosition; itemCount: number; selected: number }) => ({
   tooltip: {
-    backgroundColor: theme.colors.dark[6],
-    color: theme.colors.dark[2],
-    borderRadius: theme.radius.sm,
+    backgroundColor: 'var(--ov-raised)',
+    color: 'var(--ov-muted)',
+    borderRadius: 8,
     maxWidth: 350,
     whiteSpace: 'normal',
   },
@@ -28,25 +28,24 @@ const useStyles = createStyles((theme, params: { position?: MenuPosition; itemCo
     bottom: params.position === 'bottom-left' || params.position === 'bottom-right' ? 1 : undefined,
     fontFamily: 'Roboto',
     width: 384,
+    background: 'var(--ov-surface)',
+    border: '1px solid var(--ov-border)',
+    borderRadius: 12,
+    overflow: 'hidden',
   },
   buttonsWrapper: {
     height: 'fit-content',
     maxHeight: 415,
     overflow: 'hidden',
-    borderRadius: params.itemCount <= 6 || params.selected === params.itemCount - 1 ? theme.radius.md : undefined,
-    backgroundColor: theme.colors.dark[8],
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
   },
   scrollArrow: {
-    backgroundColor: theme.colors.dark[8],
+    background: 'var(--ov-surface)',
     textAlign: 'center',
-    borderBottomLeftRadius: theme.radius.md,
-    borderBottomRightRadius: theme.radius.md,
     height: 25,
+    borderTop: '1px solid var(--ov-divider)',
   },
   scrollArrowIcon: {
-    color: theme.colors.dark[2],
+    color: 'var(--ov-muted)',
     fontSize: 20,
   },
 }));
@@ -219,7 +218,7 @@ const ListMenu: React.FC = () => {
             <Header title={menu.title} />
             <Box className={classes.buttonsWrapper} onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => moveMenu(e)}>
               <FocusTrap active={visible}>
-                <Stack spacing={8} p={8} sx={{ overflowY: 'scroll' }}>
+                <Stack spacing={0} p={0} sx={{ overflowY: 'scroll' }}>
                   {menu.items.map((item, index) => (
                     <React.Fragment key={`menu-item-${index}`}>
                       {item.label && (
