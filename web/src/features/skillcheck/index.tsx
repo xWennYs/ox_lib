@@ -15,7 +15,7 @@ const difficultyOffsets = {
   hard: 25,
 };
 
-const useStyles = createStyles((theme, params: { difficultyOffset: number }) => ({
+const useStyles = createStyles((_theme, params: { difficultyOffset: number }) => ({
   svg: {
     position: 'absolute',
     top: '50%',
@@ -27,7 +27,7 @@ const useStyles = createStyles((theme, params: { difficultyOffset: number }) => 
   },
   track: {
     fill: 'transparent',
-    stroke: theme.colors.dark[5],
+    stroke: 'var(--ov-border)',
     strokeWidth: 8,
     r: 50,
     cx: 250,
@@ -41,7 +41,7 @@ const useStyles = createStyles((theme, params: { difficultyOffset: number }) => 
   },
   skillArea: {
     fill: 'transparent',
-    stroke: theme.fn.primaryColor(),
+    stroke: 'var(--ov-accent)',
     strokeWidth: 8,
     r: 50,
     cx: 250,
@@ -56,7 +56,7 @@ const useStyles = createStyles((theme, params: { difficultyOffset: number }) => 
     },
   },
   indicator: {
-    stroke: 'red',
+    stroke: 'var(--ov-accent)',
     strokeWidth: 16,
     fill: 'transparent',
     r: 50,
@@ -76,11 +76,13 @@ const useStyles = createStyles((theme, params: { difficultyOffset: number }) => 
     left: '50%',
     top: '50%',
     transform: 'translate(-50%, -50%)',
-    backgroundColor: theme.colors.dark[5],
+    backgroundColor: 'var(--ov-raised)',
+    border: '1px solid var(--ov-border)',
+    color: 'var(--ov-text)',
     width: 25,
     height: 25,
     textAlign: 'center',
-    borderRadius: 5,
+    borderRadius: 'var(--ov-r-sm)',
     fontSize: 16,
     fontWeight: 500,
     display: 'flex',
