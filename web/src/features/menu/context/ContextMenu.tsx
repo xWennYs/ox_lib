@@ -13,7 +13,7 @@ const openMenu = (id: string | undefined) => {
   fetchNui<ContextMenuProps>('openContext', { id: id, back: true });
 };
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
   container: {
     position: 'absolute',
     top: '15%',
@@ -21,28 +21,40 @@ const useStyles = createStyles((theme) => ({
     width: 320,
     height: 580,
   },
+  panel: {
+    background: 'var(--ov-surface)',
+    border: '1px solid var(--ov-border)',
+    borderRadius: 12,
+    overflow: 'hidden',
+  },
   header: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
     gap: 6,
+    padding: '8px 10px',
+    borderBottom: '1px solid var(--ov-divider)',
   },
   titleContainer: {
-    borderRadius: 4,
     flex: '1 85%',
-    backgroundColor: theme.colors.dark[6],
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   titleText: {
-    color: theme.colors.dark[0],
-    padding: 6,
+    color: 'var(--ov-text)',
+    fontSize: 11,
+    fontWeight: 600,
+    letterSpacing: '0.18em',
+    textTransform: 'uppercase',
     textAlign: 'center',
+    padding: '2px 0',
   },
   buttonsContainer: {
-    height: 560,
+    height: 536,
     overflowY: 'scroll',
   },
   buttonsFlexWrapper: {
-    gap: 3,
+    gap: 0,
   },
 }));
 
@@ -87,23 +99,25 @@ const ContextMenu: React.FC = () => {
   return (
     <Box className={classes.container}>
       <ScaleFade visible={visible}>
-        <Flex className={classes.header}>
-          {contextMenu.menu && (
-            <HeaderButton icon="chevron-left" iconSize={16} handleClick={() => openMenu(contextMenu.menu)} />
-          )}
-          <Box className={classes.titleContainer}>
-            <Text className={classes.titleText}>
-              <ReactMarkdown components={MarkdownComponents}>{contextMenu.title}</ReactMarkdown>
-            </Text>
+        <Box className={classes.panel}>
+          <Flex className={classes.header}>
+            {contextMenu.menu && (
+              <HeaderButton icon="chevron-left" iconSize={16} handleClick={() => openMenu(contextMenu.menu)} />
+            )}
+            <Box className={classes.titleContainer}>
+              <Text className={classes.titleText}>
+                <ReactMarkdown components={MarkdownComponents}>{contextMenu.title}</ReactMarkdown>
+              </Text>
+            </Box>
+            <HeaderButton icon="xmark" canClose={contextMenu.canClose} iconSize={18} handleClick={closeContext} />
+          </Flex>
+          <Box className={classes.buttonsContainer}>
+            <Stack className={classes.buttonsFlexWrapper}>
+              {Object.entries(contextMenu.options).map((option, index) => (
+                <ContextButton option={option} key={`context-item-${index}`} />
+              ))}
+            </Stack>
           </Box>
-          <HeaderButton icon="xmark" canClose={contextMenu.canClose} iconSize={18} handleClick={closeContext} />
-        </Flex>
-        <Box className={classes.buttonsContainer}>
-          <Stack className={classes.buttonsFlexWrapper}>
-            {Object.entries(contextMenu.options).map((option, index) => (
-              <ContextButton option={option} key={`context-item-${index}`} />
-            ))}
-          </Stack>
         </Box>
       </ScaleFade>
     </Box>

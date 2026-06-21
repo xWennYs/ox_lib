@@ -9,21 +9,29 @@ interface Props {
   handleClick: () => void;
 }
 
-const useStyles = createStyles((theme, params: { canClose?: boolean }) => ({
+const useStyles = createStyles((_theme, params: { canClose?: boolean }) => ({
   button: {
-    borderRadius: 4,
+    borderRadius: 6,
     flex: '1 15%',
     alignSelf: 'stretch',
     height: 'auto',
     textAlign: 'center',
     justifyContent: 'center',
     padding: 2,
+    background: 'transparent',
+    '&:hover': {
+      background: 'var(--ov-hover)',
+    },
   },
   root: {
     border: 'none',
+    background: 'transparent',
+    '&:hover': {
+      background: 'var(--ov-hover)',
+    },
   },
   label: {
-    color: params.canClose === false ? theme.colors.dark[2] : theme.colors.dark[0],
+    color: params.canClose === false ? 'var(--ov-faint)' : 'var(--ov-muted)',
   },
 }));
 

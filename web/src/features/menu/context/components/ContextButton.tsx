@@ -15,21 +15,27 @@ const clickContext = (id: string) => {
   fetchNui('clickContext', id);
 };
 
-const useStyles = createStyles((theme, params: { disabled?: boolean; readOnly?: boolean }) => ({
+const useStyles = createStyles((_theme, params: { disabled?: boolean; readOnly?: boolean }) => ({
   inner: {
     justifyContent: 'flex-start',
   },
   label: {
     width: '100%',
-    color: params.disabled ? theme.colors.dark[3] : theme.colors.dark[0],
+    color: params.disabled ? 'var(--ov-faint)' : '#D4D4D8',
     whiteSpace: 'pre-wrap',
   },
   button: {
     height: 'fit-content',
     width: '100%',
-    padding: 10,
+    padding: '10px 15px',
+    borderRadius: 0,
+    background: 'transparent',
+    borderTop: '1px solid var(--ov-divider)',
+    '&:first-of-type': {
+      borderTop: 'none',
+    },
     '&:hover': {
-      backgroundColor: params.readOnly ? theme.colors.dark[6] : undefined,
+      backgroundColor: params.readOnly ? 'transparent' : 'var(--ov-hover)',
       cursor: params.readOnly ? 'unset' : 'pointer',
     },
     '&:active': {
@@ -40,16 +46,17 @@ const useStyles = createStyles((theme, params: { disabled?: boolean; readOnly?: 
     maxWidth: '25px',
   },
   description: {
-    color: params.disabled ? theme.colors.dark[3] : theme.colors.dark[2],
+    color: params.disabled ? 'var(--ov-faint)' : 'var(--ov-muted)',
     fontSize: 12,
   },
   dropdown: {
     padding: 10,
-    color: theme.colors.dark[0],
+    color: 'var(--ov-text)',
     fontSize: 14,
     maxWidth: 256,
     width: 'fit-content',
     border: 'none',
+    background: 'var(--ov-raised)',
   },
   buttonStack: {
     gap: 4,
@@ -73,6 +80,7 @@ const useStyles = createStyles((theme, params: { disabled?: boolean; readOnly?: 
     alignItems: 'center',
     width: 25,
     height: 25,
+    color: 'var(--ov-muted)',
   },
 }));
 
@@ -100,7 +108,7 @@ const ContextButton: React.FC<{
                   : clickContext(buttonKey)
                 : null
             }
-            variant="default"
+            variant="subtle"
             disabled={button.disabled}
           >
             <Group position="apart" w="100%" noWrap>
@@ -133,7 +141,19 @@ const ContextButton: React.FC<{
                   </Text>
                 )}
                 {button.progress !== undefined && (
-                  <Progress value={button.progress} size="sm" color={button.colorScheme || 'dark.3'} />
+                  <Progress
+                    value={button.progress}
+                    size="sm"
+                    color={button.colorScheme || undefined}
+                    styles={
+                      !button.colorScheme
+                        ? {
+                            root: { backgroundColor: 'var(--ov-raised)' },
+                            bar: { backgroundColor: 'var(--ov-accent)' },
+                          }
+                        : { root: { backgroundColor: 'var(--ov-raised)' } }
+                    }
+                  />
                 )}
               </Stack>
               {(button.menu || button.arrow) && button.arrow !== false && (
@@ -161,7 +181,15 @@ const ContextButton: React.FC<{
                     <Progress
                       value={metadata.progress}
                       size="sm"
-                      color={metadata.colorScheme || button.colorScheme || 'dark.3'}
+                      color={metadata.colorScheme || button.colorScheme || undefined}
+                      styles={
+                        !(metadata.colorScheme || button.colorScheme)
+                          ? {
+                              root: { backgroundColor: 'var(--ov-raised)' },
+                              bar: { backgroundColor: 'var(--ov-accent)' },
+                            }
+                          : { root: { backgroundColor: 'var(--ov-raised)' } }
+                      }
                     />
                   )}
                 </>
