@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 /* Thin 100 */
 @font-face {
   font-family: 'Roboto';
@@ -343,3 +345,25 @@ code {
 .toast-error {
   background-color: #c0392b;
 }
+
+:root {
+  --ov-bg: #08080A;
+  --ov-surface: #0D0D0F;
+  --ov-raised: #16161A;
+  --ov-border: rgba(255, 255, 255, 0.08);
+  --ov-divider: rgba(255, 255, 255, 0.05);
+  --ov-hover: rgba(255, 255, 255, 0.04);
+  --ov-text: #FAFAFA;
+  --ov-muted: #A1A1AA;
+  --ov-faint: #71717A;
+  --ov-accent: #F4F4F5;
+  --ov-ok: #34D39A;
+  --ov-danger: #F06565;
+  --ov-warn: #E0B341;
+  --ov-r-sm: 8px;
+  --ov-r-md: 12px;
+  --ov-r-pill: 999px;
+  --ov-font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+body, #root { font-family: var(--ov-font); }
