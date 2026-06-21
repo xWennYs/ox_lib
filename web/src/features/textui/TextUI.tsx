@@ -8,28 +8,28 @@ import type { TextUiPosition, TextUiProps } from '../../typings';
 import MarkdownComponents from '../../config/MarkdownComponents';
 import LibIcon from '../../components/LibIcon';
 
-const useStyles = createStyles((theme, params: { position?: TextUiPosition }) => ({
+const useStyles = createStyles((_theme, params: { position?: TextUiPosition }) => ({
   wrapper: {
     height: '100%',
     width: '100%',
     position: 'absolute',
     display: 'flex',
-    alignItems: 
+    alignItems:
       params.position === 'top-center' ? 'baseline' :
       params.position === 'bottom-center' ? 'flex-end' : 'center',
-    justifyContent: 
+    justifyContent:
       params.position === 'right-center' ? 'flex-end' :
       params.position === 'left-center' ? 'flex-start' : 'center',
   },
   container: {
     fontSize: 16,
-    padding: 12,
+    padding: '12px 16px',
     margin: 8,
-    backgroundColor: theme.colors.dark[6],
-    color: theme.colors.dark[0],
+    backgroundColor: 'var(--ov-surface)',
+    color: 'var(--ov-text)',
     fontFamily: 'Roboto',
-    borderRadius: theme.radius.sm,
-    boxShadow: theme.shadows.sm,
+    borderRadius: 'var(--ov-r-md)',
+    border: '1px solid var(--ov-border)',
   },
 }));
 
@@ -62,7 +62,7 @@ const TextUI: React.FC = () => {
                   size="lg"
                   animation={data.iconAnimation}
                   style={{
-                    color: data.iconColor,
+                    color: data.iconColor ?? 'var(--ov-muted)',
                     alignSelf: !data.alignIcon || data.alignIcon === 'center' ? 'center' : 'start',
                   }}
                 />
