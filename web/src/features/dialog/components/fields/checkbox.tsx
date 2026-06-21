@@ -17,6 +17,17 @@ const CheckboxField: React.FC<Props> = (props) => {
       label={props.row.label}
       defaultChecked={props.row.checked}
       disabled={props.row.disabled}
+      styles={{
+        input: {
+          backgroundColor: 'transparent',
+          borderColor: 'var(--ov-border)',
+          '&:checked': {
+            backgroundColor: 'var(--ov-accent)',
+            borderColor: 'var(--ov-accent)',
+          },
+        },
+        icon: { color: '#09090B' },
+      }}
     />
   );
 };

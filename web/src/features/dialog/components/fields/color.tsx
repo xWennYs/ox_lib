@@ -33,6 +33,16 @@ const ColorField: React.FC<Props> = (props) => {
       format={props.row.format}
       withAsterisk={props.row.required}
       icon={props.row.icon && <LibIcon icon={props.row.icon} fixedWidth />}
+      styles={{
+        preview: {
+          border: '1px solid var(--ov-border)',
+          borderRadius: 4,
+        },
+        dropdown: {
+          backgroundColor: 'var(--ov-surface)',
+          border: '1px solid var(--ov-border)',
+        },
+      }}
     />
   );
 };

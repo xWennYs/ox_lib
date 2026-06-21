@@ -1,5 +1,22 @@
 import { Button, Group, Modal, Stack } from '@mantine/core';
 import React from 'react';
+
+const btnPrimary = {
+  backgroundColor: 'var(--ov-accent)',
+  color: '#09090B',
+  fontWeight: 700,
+  borderRadius: 8,
+  border: 'none',
+  '&:hover': { backgroundColor: 'var(--ov-accent)', opacity: 0.9 },
+} as const;
+
+const btnSecondary = {
+  backgroundColor: 'transparent',
+  border: '1px solid rgba(255,255,255,0.18)',
+  color: 'var(--ov-text)',
+  borderRadius: 8,
+  '&:hover': { backgroundColor: 'var(--ov-hover)' },
+} as const;
 import { useNuiEvent } from '../../hooks/useNuiEvent';
 import { useLocales } from '../../providers/LocaleProvider';
 import { fetchNui } from '../../utils/fetchNui';
@@ -155,13 +172,14 @@ const InputDialog: React.FC = () => {
               <Button
                 uppercase
                 variant="default"
+                sx={btnSecondary}
                 onClick={() => handleClose()}
                 mr={3}
                 disabled={fields.options?.allowCancel === false}
               >
                 {locale.ui.cancel}
               </Button>
-              <Button uppercase variant="light" type="submit">
+              <Button uppercase variant="filled" sx={btnPrimary} type="submit">
                 {locale.ui.confirm}
               </Button>
             </Group>

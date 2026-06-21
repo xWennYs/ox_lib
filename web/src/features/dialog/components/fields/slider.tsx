@@ -35,6 +35,16 @@ const SliderField: React.FC<Props> = (props) => {
           { value: props.row.min ?? 0, label: props.row.min ?? 0 },
           { value: props.row.max ?? 100, label: props.row.max ?? 100 },
         ]}
+        styles={{
+          track: { backgroundColor: 'var(--ov-raised)' },
+          bar: { backgroundColor: 'var(--ov-accent)' },
+          thumb: {
+            backgroundColor: 'var(--ov-accent)',
+            borderColor: 'var(--ov-accent)',
+          },
+          mark: { borderColor: 'var(--ov-raised)' },
+          markFilled: { borderColor: 'var(--ov-accent)' },
+        }}
       />
     </Box>
   );

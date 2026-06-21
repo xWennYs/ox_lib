@@ -4,6 +4,23 @@ import { Control, useController } from 'react-hook-form';
 import { FormValues } from '../../InputDialog';
 import LibIcon from '../../../../components/LibIcon';
 
+const dropdownStyles = {
+  dropdown: {
+    backgroundColor: 'var(--ov-surface)',
+    border: '1px solid var(--ov-border)',
+  },
+  item: {
+    color: 'var(--ov-text)',
+    '&:hover': { backgroundColor: 'var(--ov-hover)' },
+    '&[data-selected]': {
+      backgroundColor: 'var(--ov-hover)',
+      color: 'var(--ov-text)',
+    },
+    '&[data-hovered]': { backgroundColor: 'var(--ov-hover)' },
+  },
+  nothingFound: { color: 'var(--ov-muted)' },
+} as const;
+
 interface Props {
   row: ISelect;
   index: number;
@@ -34,6 +51,7 @@ const SelectField: React.FC<Props> = (props) => {
           clearable={props.row.clearable}
           searchable={props.row.searchable}
           icon={props.row.icon && <LibIcon icon={props.row.icon} fixedWidth />}
+          styles={dropdownStyles}
         />
       ) : (
         <>
@@ -53,6 +71,7 @@ const SelectField: React.FC<Props> = (props) => {
               searchable={props.row.searchable}
               maxSelectedValues={props.row.maxSelectedValues}
               icon={props.row.icon && <LibIcon icon={props.row.icon} fixedWidth />}
+              styles={dropdownStyles}
             />
           )}
         </>

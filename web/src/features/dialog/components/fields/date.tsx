@@ -4,6 +4,29 @@ import { FormValues } from '../../InputDialog';
 import { DatePicker, DateRangePicker } from '@mantine/dates';
 import LibIcon from '../../../../components/LibIcon';
 
+const calendarStyles = {
+  dropdown: {
+    backgroundColor: 'var(--ov-surface)',
+    border: '1px solid var(--ov-border)',
+  },
+  day: {
+    color: 'var(--ov-text)',
+    '&[data-selected]': {
+      backgroundColor: 'var(--ov-accent)',
+      color: '#09090B',
+    },
+    '&:hover': { backgroundColor: 'var(--ov-hover)' },
+    '&[data-in-range]': { backgroundColor: 'rgba(244,244,245,0.12)' },
+  },
+  weekday: { color: 'var(--ov-muted)' },
+  calendarHeader: { color: 'var(--ov-text)' },
+  calendarHeaderLevel: { color: 'var(--ov-text)' },
+  calendarHeaderControl: {
+    color: 'var(--ov-text)',
+    '&:hover': { backgroundColor: 'var(--ov-hover)' },
+  },
+} as const;
+
 interface Props {
   row: IDateInput;
   index: number;
@@ -37,6 +60,7 @@ const DateField: React.FC<Props> = (props) => {
           icon={props.row.icon && <LibIcon fixedWidth icon={props.row.icon} />}
           minDate={props.row.min ? new Date(props.row.min) : undefined}
           maxDate={props.row.max ? new Date(props.row.max) : undefined}
+          styles={calendarStyles}
         />
       )}
       {props.row.type === 'date-range' && (
@@ -64,6 +88,7 @@ const DateField: React.FC<Props> = (props) => {
           icon={props.row.icon && <LibIcon fixedWidth icon={props.row.icon} />}
           minDate={props.row.min ? new Date(props.row.min) : undefined}
           maxDate={props.row.max ? new Date(props.row.max) : undefined}
+          styles={calendarStyles}
         />
       )}
     </>
