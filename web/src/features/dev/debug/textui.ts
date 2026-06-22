@@ -6,9 +6,9 @@ export const debugTextUI = () => {
     {
       action: 'textUi',
       data: {
-        text: '[E] - Access locker inventory  \n [G] - Do something else',
+        text: 'Move Forward {W}\nMove Backward {S}\nMove Left {A}\nMove Right {D}\nCancel {X}\nConfirm {SPACE}',
         position: 'right-center',
-        icon: 'door-open',
+        icon: 'gamepad',
       },
     },
   ]);
