@@ -26,7 +26,7 @@ const useStyles = createStyles((_theme, params: { position?: MenuPosition; itemC
     right: params.position === 'top-right' || params.position === 'bottom-right' ? 1 : undefined,
     left: params.position === 'bottom-left' ? 1 : undefined,
     bottom: params.position === 'bottom-left' || params.position === 'bottom-right' ? 1 : undefined,
-    fontFamily: 'Roboto',
+    fontFamily: 'var(--ov-font)',
     width: 384,
     background: 'var(--ov-surface)',
     border: '1px solid var(--ov-border)',

@@ -15,11 +15,9 @@ const useStyles = createStyles((_theme, params: { position?: TextUiPosition }) =
     position: 'absolute',
     display: 'flex',
     alignItems:
-      params.position === 'top-center' ? 'baseline' :
-      params.position === 'bottom-center' ? 'flex-end' : 'center',
+      params.position === 'top-center' ? 'baseline' : params.position === 'bottom-center' ? 'flex-end' : 'center',
     justifyContent:
-      params.position === 'right-center' ? 'flex-end' :
-      params.position === 'left-center' ? 'flex-start' : 'center',
+      params.position === 'right-center' ? 'flex-end' : params.position === 'left-center' ? 'flex-start' : 'center',
   },
   container: {
     fontSize: 16,
@@ -27,7 +25,7 @@ const useStyles = createStyles((_theme, params: { position?: TextUiPosition }) =
     margin: 8,
     backgroundColor: 'var(--ov-surface)',
     color: 'var(--ov-text)',
-    fontFamily: 'Roboto',
+    fontFamily: 'var(--ov-font)',
     borderRadius: 'var(--ov-r-md)',
     border: '1px solid var(--ov-border)',
   },
