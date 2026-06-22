@@ -13,8 +13,8 @@ const useStyles = createStyles((_theme, params: { canClose?: boolean }) => ({
   button: {
     borderRadius: 6,
     flex: '0 0 auto',
-    width: 28,
-    height: 28,
+    width: 38,
+    height: 38,
     minWidth: 28,
     textAlign: 'center',
     justifyContent: 'center',

@@ -119,7 +119,7 @@ const ContextMenu: React.FC = () => {
         <Box className={classes.panel}>
           <Flex className={classes.header}>
             {contextMenu.menu && (
-              <HeaderButton icon="chevron-left" iconSize={16} handleClick={() => openMenu(contextMenu.menu)} />
+              <HeaderButton icon="chevron-left" iconSize={18} handleClick={() => openMenu(contextMenu.menu)} />
             )}
             <Box className={classes.titleContainer}>
               <Text className={classes.titleText}>
@@ -131,7 +131,7 @@ const ContextMenu: React.FC = () => {
                 </Text>
               )}
             </Box>
-            <HeaderButton icon="xmark" canClose={contextMenu.canClose} iconSize={16} handleClick={closeContext} />
+            <HeaderButton icon="xmark" canClose={contextMenu.canClose} iconSize={18} handleClick={closeContext} />
           </Flex>
           <Box className={classes.buttonsContainer}>
             <Stack className={classes.buttonsFlexWrapper}>

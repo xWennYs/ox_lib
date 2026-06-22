@@ -8,8 +8,16 @@ export const theme: MantineThemeOverride = {
   // dark scale remapped to Hairline Mono surfaces (index 7=raised,8=surface,9=bg)
   colors: {
     dark: [
-      '#FAFAFA', '#A1A1AA', '#71717A', '#52525B', '#3F3F46',
-      '#27272A', '#1F1F23', '#16161A', '#0D0D0F', '#08080A',
+      '#FAFAFA',
+      '#A1A1AA',
+      '#71717A',
+      '#52525B',
+      '#3F3F46',
+      '#27272A',
+      '#1F1F23',
+      '#16161A',
+      '#0D0D0F',
+      '#08080A',
     ] as any,
   },
   shadows: { sm: '0 1px 2px rgba(0,0,0,0.4)', md: '0 2px 8px rgba(0,0,0,0.5)' },
@@ -27,8 +35,11 @@ export const theme: MantineThemeOverride = {
           borderRadius: 12,
         },
         title: {
-          fontWeight: 600, letterSpacing: '.18em', textTransform: 'uppercase',
-          fontSize: 11, color: 'var(--ov-text)',
+          fontWeight: 600,
+          letterSpacing: '.18em',
+          textTransform: 'uppercase',
+          fontSize: 11,
+          color: 'var(--ov-text)',
         },
       },
     },
