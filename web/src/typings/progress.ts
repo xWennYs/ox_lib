@@ -8,4 +8,7 @@ export interface CircleProgressbarProps {
 export interface ProgressbarProps {
   label: string;
   duration: number;
+  icon?: string;
+  description?: string;
+  canCancel?: boolean;
 }

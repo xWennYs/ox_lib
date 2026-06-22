@@ -7,6 +7,8 @@ export const debugProgressbar = () => {
       action: 'progress',
       data: {
         label: 'Using Lockpick',
+        description: 'Bypassing the lock mechanism...',
+        icon: 'lock',
         duration: 8000,
       },
     },
