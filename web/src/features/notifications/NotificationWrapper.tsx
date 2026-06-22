@@ -10,8 +10,7 @@ import LibIcon from '../../components/LibIcon';
 
 const useStyles = createStyles(() => ({
   container: {
-    width: 'fit-content',
-    maxWidth: 320,
+    width: 300,
     height: 'fit-content',
     backgroundColor: 'var(--ov-surface)',
     border: '1px solid var(--ov-border)',

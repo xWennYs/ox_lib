@@ -6,7 +6,7 @@ export const debugTextUI = () => {
     {
       action: 'textUi',
       data: {
-        text: 'Move Forward {W}\nMove Backward {S}\nMove Left {A}\nMove Right {D}\nCancel {X}\nConfirm {SPACE}',
+        text: 'Move Forward [W]\nMove Backward [S]\nMove Left [A]\nMove Right [D]\nCancel [X]\nConfirm [SPACE]',
         position: 'right-center',
         icon: 'gamepad',
       },

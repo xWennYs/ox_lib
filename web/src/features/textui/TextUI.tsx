@@ -8,8 +8,8 @@ import type { TextUiPosition, TextUiProps } from '../../typings';
 import MarkdownComponents from '../../config/MarkdownComponents';
 import LibIcon from '../../components/LibIcon';
 
-const KEY_TOKEN = /\{([^}]+)\}/g;
-const hasKeyToken = (text: string) => /\{[^}]+\}/.test(text);
+const KEY_TOKEN = /\[([^\]]+)\]/g;
+const hasKeyToken = (text: string) => /\[[^\]]+\]/.test(text);
 
 const useStyles = createStyles((_theme, params: { position?: TextUiPosition }) => ({
   wrapper: {
@@ -106,7 +106,7 @@ const KeyContent: React.FC<{ text: string; classes: Record<string, string> }> = 
     <Box className={classes.content}>
       {lines.map((line, idx) => {
         // "Label {KEY}" -> label on the left, key-cap(s) pushed to the right
-        const trailing = line.match(/^(.*?\S)\s+((?:\{[^}]+\}\s*)+)$/);
+        const trailing = line.match(/^(.*?\S)\s+((?:\[[^\]]+\]\s*)+)$/);
         if (trailing) {
           return (
             <Box key={idx} className={classes.row}>
