@@ -18,43 +18,60 @@ const useStyles = createStyles(() => ({
     position: 'absolute',
     top: '15%',
     right: '25%',
-    width: 320,
-    height: 580,
+    width: 340,
   },
   panel: {
+    display: 'flex',
+    flexDirection: 'column',
+    maxHeight: 580,
     background: 'var(--ov-surface)',
     border: '1px solid var(--ov-border)',
     borderRadius: 12,
     overflow: 'hidden',
   },
   header: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 6,
-    padding: '8px 10px',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    gap: 8,
+    padding: '14px 16px',
     borderBottom: '1px solid var(--ov-divider)',
   },
   titleContainer: {
-    flex: '1 85%',
+    flex: 1,
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: 'column',
+    gap: 2,
+    minWidth: 0,
   },
   titleText: {
     color: 'var(--ov-text)',
-    fontSize: 11,
+    fontSize: 16,
     fontWeight: 600,
-    letterSpacing: '0.18em',
-    textTransform: 'uppercase',
-    textAlign: 'center',
-    padding: '2px 0',
+    lineHeight: 1.25,
+  },
+  subtitleText: {
+    color: 'var(--ov-muted)',
+    fontSize: 13,
+    lineHeight: 1.3,
   },
   buttonsContainer: {
-    height: 536,
-    overflowY: 'scroll',
+    flex: 1,
+    minHeight: 0,
+    overflowY: 'auto',
+    padding: 6,
   },
   buttonsFlexWrapper: {
-    gap: 0,
+    gap: 2,
+  },
+  footer: {
+    padding: '10px 16px',
+    borderTop: '1px solid var(--ov-divider)',
+    color: 'var(--ov-faint)',
+    fontSize: 12,
+  },
+  footerKey: {
+    color: 'var(--ov-muted)',
+    fontWeight: 600,
   },
 }));
 
@@ -108,6 +125,11 @@ const ContextMenu: React.FC = () => {
               <Text className={classes.titleText}>
                 <ReactMarkdown components={MarkdownComponents}>{contextMenu.title}</ReactMarkdown>
               </Text>
+              {contextMenu.subtitle && (
+                <Text className={classes.subtitleText}>
+                  <ReactMarkdown components={MarkdownComponents}>{contextMenu.subtitle}</ReactMarkdown>
+                </Text>
+              )}
             </Box>
             <HeaderButton icon="xmark" canClose={contextMenu.canClose} iconSize={18} handleClick={closeContext} />
           </Flex>
@@ -117,6 +139,9 @@ const ContextMenu: React.FC = () => {
                 <ContextButton option={option} key={`context-item-${index}`} />
               ))}
             </Stack>
+          </Box>
+          <Box className={classes.footer}>
+            Press <span className={classes.footerKey}>ESC</span> to close
           </Box>
         </Box>
       </ScaleFade>

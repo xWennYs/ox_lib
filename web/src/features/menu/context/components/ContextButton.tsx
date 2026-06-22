@@ -27,15 +27,12 @@ const useStyles = createStyles((_theme, params: { disabled?: boolean; readOnly?:
   button: {
     height: 'fit-content',
     width: '100%',
-    padding: '10px 15px',
-    borderRadius: 0,
+    padding: '10px 12px',
+    borderRadius: 8,
     background: 'transparent',
-    borderTop: '1px solid var(--ov-divider)',
-    '&:first-of-type': {
-      borderTop: 'none',
-    },
+    transition: 'background-color .12s ease',
     '&:hover': {
-      backgroundColor: params.readOnly ? 'transparent' : 'var(--ov-hover)',
+      backgroundColor: params.readOnly ? 'transparent' : 'var(--ov-raised)',
       cursor: params.readOnly ? 'unset' : 'pointer',
     },
     '&:active': {
