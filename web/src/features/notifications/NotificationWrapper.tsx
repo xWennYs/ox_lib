@@ -65,26 +65,27 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-const createAnimation = (from: string, to: string, visible: boolean) => keyframes({
-  from: {
-    opacity: visible ? 0 : 1,
-    transform: `translate${from}`,
-  },
-  to: {
-    opacity: visible ? 1 : 0,
-    transform: `translate${to}`,
-  },
-});
+const createAnimation = (from: string, to: string, visible: boolean) =>
+  keyframes({
+    from: {
+      opacity: visible ? 0 : 1,
+      transform: `translate${from}`,
+    },
+    to: {
+      opacity: visible ? 1 : 0,
+      transform: `translate${to}`,
+    },
+  });
 
 const getAnimation = (visible: boolean, position: string) => {
-  const animationOptions = visible ? '0.2s ease-out forwards' : '0.4s ease-in forwards'
+  const animationOptions = visible ? '0.2s ease-out forwards' : '0.4s ease-in forwards';
   let animation: { from: string; to: string };
 
   if (visible) {
-    animation = position.includes('bottom') ? { from: 'Y(30px)', to: 'Y(0px)' } : { from: 'Y(-30px)', to:'Y(0px)' };
+    animation = position.includes('bottom') ? { from: 'Y(30px)', to: 'Y(0px)' } : { from: 'Y(-30px)', to: 'Y(0px)' };
   } else {
     if (position.includes('right')) {
-      animation = { from: 'X(0px)', to: 'X(100%)' }
+      animation = { from: 'X(0px)', to: 'X(100%)' };
     } else if (position.includes('left')) {
       animation = { from: 'X(0px)', to: 'X(-100%)' };
     } else if (position === 'top-center') {
@@ -96,7 +97,7 @@ const getAnimation = (visible: boolean, position: string) => {
     }
   }
 
-  return `${createAnimation(animation.from, animation.to, visible)} ${animationOptions}`
+  return `${createAnimation(animation.from, animation.to, visible)} ${animationOptions}`;
 };
 
 const durationBarShrink = keyframes({
@@ -131,7 +132,7 @@ const Notifications: React.FC = () => {
 
     data.showDuration = data.showDuration !== undefined ? data.showDuration : true;
 
-    if (toastId) setToastKey(prevKey => prevKey + 1);
+    if (toastId) setToastKey((prevKey) => prevKey + 1);
 
     // Backwards compat with old notifications
     switch (position) {
@@ -162,9 +163,7 @@ const Notifications: React.FC = () => {
     }
 
     // Resolve icon color: caller-supplied wins; default is subdued (--ov-muted)
-    const resolvedIconColor = data.iconColor
-      ? tinycolor(data.iconColor).toRgbString()
-      : 'var(--ov-muted)';
+    const resolvedIconColor = data.iconColor ? tinycolor(data.iconColor).toRgbString() : 'var(--ov-muted)';
 
     // Status dot color is always driven by type (not caller-overridable via iconColor)
     const dotColor = getDotColor(data.type);
@@ -183,16 +182,8 @@ const Notifications: React.FC = () => {
 
           {/* Optional icon — secondary, subdued */}
           {data.icon && (
-            <div
-              className={classes.iconWrapper}
-              style={data.iconColor ? { color: resolvedIconColor } : undefined}
-            >
-              <LibIcon
-                icon={data.icon}
-                fixedWidth
-                color={resolvedIconColor}
-                animation={data.iconAnimation}
-              />
+            <div className={classes.iconWrapper} style={data.iconColor ? { color: resolvedIconColor } : undefined}>
+              <LibIcon icon={data.icon} fixedWidth color={resolvedIconColor} animation={data.iconAnimation} />
             </div>
           )}
 

@@ -88,12 +88,7 @@ const AlertDialog: React.FC = () => {
                 {dialogData.labels?.cancel || locale.ui.cancel}
               </Button>
             )}
-            <Button
-              uppercase
-              variant="filled"
-              sx={btnPrimary}
-              onClick={() => closeAlert('confirm')}
-            >
+            <Button uppercase variant="filled" sx={btnPrimary} onClick={() => closeAlert('confirm')}>
               {dialogData.labels?.confirm || locale.ui.confirm}
             </Button>
           </Group>
