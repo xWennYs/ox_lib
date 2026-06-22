@@ -1,7 +1,7 @@
 import { useNuiEvent } from '../../hooks/useNuiEvent';
 import { toast, Toaster } from 'react-hot-toast';
 import ReactMarkdown from 'react-markdown';
-import { Box, createStyles, keyframes, Stack, Text } from '@mantine/core';
+import { Box, Center, createStyles, Group, keyframes, RingProgress, Stack, Text, ThemeIcon } from '@mantine/core';
 import React, { useState } from 'react';
 import tinycolor from 'tinycolor2';
 import type { NotificationProps } from '../../typings';
@@ -17,36 +17,7 @@ const useStyles = createStyles(() => ({
     border: '1px solid var(--ov-border)',
     borderRadius: 10,
     padding: '11px 13px',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 10,
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  durationBar: {
-    position: 'absolute',
-    left: 0,
-    bottom: 0,
-    height: 2,
-    backgroundColor: 'var(--ov-accent)',
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-  },
-  dot: {
-    width: 7,
-    height: 7,
-    borderRadius: '50%',
-    flexShrink: 0,
-    marginTop: 5,
-  },
-  iconWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    color: 'var(--ov-muted)',
-    fontSize: 16,
-    flexShrink: 0,
-    marginTop: 2,
+    fontFamily: 'var(--ov-font)',
   },
   title: {
     color: 'var(--ov-text)',
@@ -100,23 +71,10 @@ const getAnimation = (visible: boolean, position: string) => {
   return `${createAnimation(animation.from, animation.to, visible)} ${animationOptions}`;
 };
 
-const durationBarShrink = keyframes({
-  from: { width: '100%' },
-  to: { width: '0%' },
+const durationCircle = keyframes({
+  '0%': { strokeDasharray: `0, ${15.1 * 2 * Math.PI}` },
+  '100%': { strokeDasharray: `${15.1 * 2 * Math.PI}, 0` },
 });
-
-const getDotColor = (type?: string): string => {
-  switch (type) {
-    case 'success':
-      return 'var(--ov-ok)';
-    case 'error':
-      return 'var(--ov-danger)';
-    case 'warning':
-      return 'var(--ov-warn)';
-    default:
-      return 'var(--ov-text)';
-  }
-};
 
 const Notifications: React.FC = () => {
   const { classes } = useStyles();
@@ -128,6 +86,7 @@ const Notifications: React.FC = () => {
     const toastId = data.id?.toString();
     const duration = data.duration || 3000;
 
+    let iconColor: string;
     let position = data.position || 'top-right';
 
     data.showDuration = data.showDuration !== undefined ? data.showDuration : true;
@@ -144,7 +103,6 @@ const Notifications: React.FC = () => {
         break;
     }
 
-    // Resolve icon: caller-supplied takes precedence; fall back to type defaults
     if (!data.icon) {
       switch (data.type) {
         case 'error':
@@ -162,11 +120,24 @@ const Notifications: React.FC = () => {
       }
     }
 
-    // Resolve icon color: caller-supplied wins; default is subdued (--ov-muted)
-    const resolvedIconColor = data.iconColor ? tinycolor(data.iconColor).toRgbString() : 'var(--ov-muted)';
-
-    // Status dot color is always driven by type (not caller-overridable via iconColor)
-    const dotColor = getDotColor(data.type);
+    if (!data.iconColor) {
+      switch (data.type) {
+        case 'error':
+          iconColor = 'red.6';
+          break;
+        case 'success':
+          iconColor = 'teal.6';
+          break;
+        case 'warning':
+          iconColor = 'yellow.6';
+          break;
+        default:
+          iconColor = 'blue.6';
+          break;
+      }
+    } else {
+      iconColor = tinycolor(data.iconColor).toRgbString();
+    }
 
     toast.custom(
       (t) => (
@@ -177,36 +148,63 @@ const Notifications: React.FC = () => {
           }}
           className={classes.container}
         >
-          {/* Status dot — primary semantic signal */}
-          <div className={classes.dot} style={{ backgroundColor: dotColor }} />
-
-          {/* Optional icon — secondary, subdued */}
-          {data.icon && (
-            <div className={classes.iconWrapper} style={data.iconColor ? { color: resolvedIconColor } : undefined}>
-              <LibIcon icon={data.icon} fixedWidth color={resolvedIconColor} animation={data.iconAnimation} />
-            </div>
-          )}
-
-          <Stack spacing={0}>
-            {data.title && <Text className={classes.title}>{data.title}</Text>}
-            {data.description && (
-              <ReactMarkdown
-                components={MarkdownComponents}
-                className={`${!data.title ? classes.descriptionOnly : classes.description} description`}
-              >
-                {data.description}
-              </ReactMarkdown>
+          <Group noWrap spacing={12}>
+            {data.icon && (
+              <>
+                {data.showDuration ? (
+                  <RingProgress
+                    key={toastKey}
+                    size={38}
+                    thickness={2}
+                    sections={[{ value: 100, color: iconColor }]}
+                    style={{ alignSelf: !data.alignIcon || data.alignIcon === 'center' ? 'center' : 'start' }}
+                    styles={{
+                      root: {
+                        '> svg > circle:nth-of-type(2)': {
+                          animation: `${durationCircle} linear forwards reverse`,
+                          animationDuration: `${duration}ms`,
+                        },
+                        margin: -3,
+                      },
+                    }}
+                    label={
+                      <Center>
+                        <ThemeIcon
+                          color={iconColor}
+                          radius="xl"
+                          size={32}
+                          variant={tinycolor(iconColor).getAlpha() < 0 ? undefined : 'light'}
+                        >
+                          <LibIcon icon={data.icon} fixedWidth color={iconColor} animation={data.iconAnimation} />
+                        </ThemeIcon>
+                      </Center>
+                    }
+                  />
+                ) : (
+                  <ThemeIcon
+                    color={iconColor}
+                    radius="xl"
+                    size={32}
+                    variant={tinycolor(iconColor).getAlpha() < 0 ? undefined : 'light'}
+                    style={{ alignSelf: !data.alignIcon || data.alignIcon === 'center' ? 'center' : 'start' }}
+                  >
+                    <LibIcon icon={data.icon} fixedWidth color={iconColor} animation={data.iconAnimation} />
+                  </ThemeIcon>
+                )}
+              </>
             )}
-          </Stack>
-
-          {/* Countdown indicator — hairline progress bar shrinking over the duration */}
-          {data.showDuration && (
-            <div
-              key={toastKey}
-              className={classes.durationBar}
-              style={{ animation: `${durationBarShrink} linear forwards`, animationDuration: `${duration}ms` }}
-            />
-          )}
+            <Stack spacing={0}>
+              {data.title && <Text className={classes.title}>{data.title}</Text>}
+              {data.description && (
+                <ReactMarkdown
+                  components={MarkdownComponents}
+                  className={`${!data.title ? classes.descriptionOnly : classes.description} description`}
+                >
+                  {data.description}
+                </ReactMarkdown>
+              )}
+            </Stack>
+          </Group>
         </Box>
       ),
       {
