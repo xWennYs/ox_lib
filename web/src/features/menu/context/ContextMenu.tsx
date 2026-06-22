@@ -131,7 +131,7 @@ const ContextMenu: React.FC = () => {
                 </Text>
               )}
             </Box>
-            <HeaderButton icon="xmark" canClose={contextMenu.canClose} iconSize={18} handleClick={closeContext} />
+            <HeaderButton icon="xmark" canClose={contextMenu.canClose} iconSize={16} handleClick={closeContext} />
           </Flex>
           <Box className={classes.buttonsContainer}>
             <Stack className={classes.buttonsFlexWrapper}>

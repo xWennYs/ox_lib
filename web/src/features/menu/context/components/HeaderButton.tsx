@@ -12,12 +12,13 @@ interface Props {
 const useStyles = createStyles((_theme, params: { canClose?: boolean }) => ({
   button: {
     borderRadius: 6,
-    flex: '1 15%',
-    alignSelf: 'stretch',
-    height: 'auto',
+    flex: '0 0 auto',
+    width: 28,
+    height: 28,
+    minWidth: 28,
     textAlign: 'center',
     justifyContent: 'center',
-    padding: 2,
+    padding: 0,
     background: 'transparent',
     '&:hover': {
       background: 'var(--ov-hover)',
